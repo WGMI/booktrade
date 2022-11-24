@@ -28,7 +28,7 @@
                                 <a href="#" class="search-button search-toggle" data-selector="#header-wrap">
                                     <i class="icon icon-search"></i>
                                 </a>
-                                <form role="search" method="get" class="search-box">
+                                <form action="{{url('search')}}" role="search" method="get" class="search-box">
                                     <input class="search-field text search-input" placeholder="Books, Author, ISBN, Users" type="search">
                                 </form>
                             </div>

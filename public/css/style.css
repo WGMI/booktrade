@@ -696,6 +696,27 @@ fieldset[disabled] a.btn {
   display: block;
 }
 
+#f-element {
+  overflow: hidden;
+  border-radius: 60px;
+}
+
+#inp-cover {
+  padding: 0 35px;
+  background-color: #fff;
+}
+
+.bigsearch{
+  display: block;
+  width: 100%;
+  font-size: 19px;
+  border: 0;
+  padding: 30px 0;
+  line-height: 1;
+  background-color: transparent;
+  cursor: auto;
+}
+
 
 /*====================================================================*/
 /* 5. CONTENT ELEMENTS */
