@@ -29,7 +29,7 @@
                                     <i class="icon icon-search"></i>
                                 </a>
                                 <form action="{{url('search')}}" role="search" method="get" class="search-box">
-                                    <input class="search-field text search-input" placeholder="Books, Author, ISBN, Users" type="search">
+                                    <input name="query" class="search-field text search-input" placeholder="Books, Author, ISBN, Users" type="search">
                                 </form>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
 
 				<div class="col-md-2">
 					<div class="main-logo">
-						<a href="index.html" style="text-decoration:none;"><span style="font-family:'Prata', Georgia, serif; font-size:40px; font-weight:700;">Book</span><span style="font-family:'Prata', Georgia, serif; font-size:40px;">Trade</span></a>
+						<a href="{{url('/')}}" style="text-decoration:none;"><span style="font-family:'Prata', Georgia, serif; font-size:40px; font-weight:700;">Book</span><span style="font-family:'Prata', Georgia, serif; font-size:40px;">Trade</span></a>
 					</div>
 
 				</div>

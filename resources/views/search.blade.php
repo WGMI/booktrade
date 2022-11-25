@@ -6,12 +6,11 @@
 		<div class="row">
 			<div class="col-md-12">
 
-			<div class="section-header align-center">
-                <div id="f-element">
-                    <div id="inp-cover">
-                        <input type="text" class="bigsearch">
-                    </div>
-                </div>
+			<div class="search-bar">
+				<form>
+					<input type="text" id="search" placeholder="Search" class="big-search" value="{{$q}}">
+					<button class="search-btn"><i class="icon icon-search"></i></button>
+				</form>
 			</div>
 
 			<div class="product-list" data-aos="fade-up">
@@ -83,5 +82,25 @@
 		</div>
 	</div>
 </section>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+window.addEventListener("load",(e) => {
+	let query = document.getElementById('search').value
+	queryLibrary(query)
+})
+
+const queryLibrary = (query) => {
+	axios.get(`http://openlibrary.org/search.json?q=${query}`)
+	.then((res) => {
+		console.log(res.data)
+	})
+	.catch((err) => {
+		console.log(err)
+	})
+}
+
+</script>
 
 @endsection
