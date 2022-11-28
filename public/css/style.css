@@ -1885,9 +1885,19 @@ footer#footer {
   transition: opacity 0.3s;
 }
 
+.book-details {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .titletext:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+.book-title {
+  font-weight: bold;
 }
 
 @media screen and (max-width: 768px) {

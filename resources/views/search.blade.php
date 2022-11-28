@@ -16,22 +16,24 @@
 			<div class="product-list" data-aos="fade-up">
 				<div class="row" id="search-items">
 					
-			    </div><!--ft-books-slider-->				
+			    </div><!--ft-books-slider-->	
+				<div class="more-results">
+					<h4 id="moreheading" style="display:none;">More Results</h4>
+					<ul id="more-results-area">
+					</ul>
+				</div>			
 			</div><!--grid-->
 
 
 			</div><!--inner-content-->
 		</div>
 		
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col-md-12">
 
-				<div class="btn-wrap align-right">
-					<a href="#" class="btn-accent-arrow">More <i class="icon icon-ns-arrow-right"></i></a>
-				</div>
 				
 			</div>		
-		</div>
+		</div> -->
 	</div>
 </section>
 
@@ -44,28 +46,43 @@ window.addEventListener("load",(e) => {
 })
 
 const results = document.getElementById('search-items')
+const moreheading = document.getElementById('moreheading')
+const moreresults = document.getElementById('more-results-area')
 
 const queryLibrary = (query) => {
+	const limit = 12
 	axios.get(`http://openlibrary.org/search.json?q=${query}`)
 	.then((res) => {
 		let data = res.data.docs
-		data.forEach(el => {
-			console.log(el)
-			let book = document.createElement('div')
-			book.setAttribute('class','col-md-2 book')
-			book.innerHTML = `
-			<figure class="product-style">
-				<a href=""><img src="images/product-item1.jpg" alt="Books" class="product-item"></a>
-				<figcaption>
-					<div class="titletext">
-						<h4>${shorten(el.title,18)}</h4>
-						<p>${shorten(el.author_name[0],16)}</p>
-						<span class="tooltiptext">${el.title} by ${el.author_name[0]}</span>
-					</div>
-				</figcaption>
-			</figure>
-			`
-			results.appendChild(book) 
+		moreheading.style.display = (data.length > limit) ? 'inline' : 'none'
+		data.every((el,index) => {
+			console.log(index)
+			if(index < limit){
+				let book = document.createElement('div')
+				book.setAttribute('class','col-md-2 book')
+				book.innerHTML = `
+				<figure class="product-style">
+					<a href=""><img src="images/product-item1.jpg" alt="Books" class="product-item"></a>
+					<figcaption>
+						<div class="titletext">
+							<div class="book-details">
+								<span class="book-title">${(el.title)}</span>
+								<br>
+								<span>${(el.author_name[0])}</span>
+							</div>
+							<span class="tooltiptext">${el.title} by ${el.author_name[0]}</span>
+						</div>
+					</figcaption>
+				</figure>
+				`
+				results.appendChild(book) 
+			}else{
+				let listitem = document.createElement('li')
+				listitem.innerHTML = `<a href="#">${el.title} by ${el.author_name[0]}</a>`
+				moreresults.appendChild(listitem)
+			}
+			
+			return true
 		});
 	})
 	.catch((err) => {
