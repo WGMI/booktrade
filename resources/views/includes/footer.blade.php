@@ -7,7 +7,7 @@
 				
 				<div class="footer-item">
 					<div class="company-brand">
-						<img src="images/main-logo.png" alt="logo" class="footer-logo">
+					<a href="{{url('/')}}" style="text-decoration:none;"><span style="font-family:'Prata', Georgia, serif; font-size:40px; font-weight:700;">Book</span><span style="font-family:'Prata', Georgia, serif; font-size:40px;">Trade</span></a>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna. Adipiscing fames semper erat ac in suspendisse iaculis.</p>
 					</div>
 				</div>
