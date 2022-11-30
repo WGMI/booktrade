@@ -24,3 +24,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/search', [SearchController::class, 'index']);
 Route::get('/book/{id}', [BookController::class, 'show']);
+
+Route::get('auth/google',[OAuthController::class, 'redirect'])->name('google-auth');
+Route::get('auth/google/callback',[OAuthController::class, 'callback'])->name('google-callback');

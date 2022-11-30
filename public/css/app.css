@@ -5227,6 +5227,7 @@ textarea.form-control-lg {
   word-wrap: break-word;
 }
 
+/* 
 .modal {
   --bs-modal-zindex: 1055;
   --bs-modal-width: 500px;
@@ -5270,7 +5271,9 @@ textarea.form-control-lg {
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
   transform: translate(0, -50px);
-}
+} */
+
+/* 
 @media (prefers-reduced-motion: reduce) {
   .modal.fade .modal-dialog {
     transition: none;
@@ -5518,7 +5521,7 @@ textarea.form-control-lg {
   .modal-fullscreen-xxl-down .modal-body {
     overflow-y: auto;
   }
-}
+} */
 .tooltip {
   --bs-tooltip-zindex: 1080;
   --bs-tooltip-max-width: 200px;
