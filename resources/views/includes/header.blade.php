@@ -38,6 +38,25 @@
 							<i class="icon icon-user"></i>
 						</a>
 
+						@auth
+						<div class="modal fade" id="login-form" tabindex="-1" aria-labelledby="login-formLabel" aria-hidden="true">
+							<div class="modal-dialog modal-sm modal-dialog-centered">
+								<div class="modal-content">
+									<div style="display:flex; flex-direction: column; width: 100%; align-items:center; margin:auto;">
+										<a href="">My Account</a>
+										<a href="{{ route('logout') }}"
+										onclick="event.preventDefault();
+														document.getElementById('logout-form').submit();">
+											{{ __('Logout') }}
+										</a>
+										<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+											@csrf
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						@else
 						<div class="modal fade" id="login-form" tabindex="-1" aria-labelledby="login-formLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog modal-dialog-centered">
 								<div class="modal-content">
@@ -64,47 +83,14 @@
 											@enderror
 
 											<input type="submit" class="btn btn-outline-dark btn-pill btn-xlarge btn-full" value="Login">
-											<button class="btn btn-outline-dark btn-pill btn-xlarge btn-full"><i class="fa fa-google" style="font-size:24px;"></i> Login With Google</button>
-											<a href="" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registration-form" style="text-decoration:underline;">New Here? Join Now.</a>
+											<a href="{{url('auth/google')}}" class="btn btn-outline-dark btn-pill btn-xlarge btn-full"><i class="fa fa-google" style="font-size:24px;"></i> Login With Google</a>
+											<a href="{{url('/register')}}" style="text-decoration:underline;">New Here? Join Now.</a>
 										</form>
 									</div>
 								</div>
 							</div>
 						</div>
-
-						<div class="modal fade" id="registration-form" tabindex="-1" aria-labelledby="registration-formLabel" aria-hidden="true">
-							<div class="modal-dialog modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title fs-5" id="registration-formLabel">Register</h1>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										<form action="{{route('login')}}" method="post">
-											@csrf
-											<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email" required autocomplete="email" autofocus>
-											@error('email')
-												<span class="invalid-feedback" role="alert">
-													<strong>{{ $message }}</strong>
-												</span>
-											@enderror
-
-											<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
-
-											@error('password')
-												<span class="invalid-feedback" role="alert">
-													<strong>{{ $message }}</strong>
-												</span>
-											@enderror
-
-											<input type="submit" class="btn btn-outline-dark btn-pill btn-xlarge btn-full" value="Login">
-											<button class="btn btn-outline-dark btn-pill btn-xlarge btn-full"><i class="fa fa-google" style="font-size:24px;"></i> Login With Google</button>
-											<a href="" data-bs-toggle="modal" data-bs-target="#registration-form" style="text-decoration:underline;">New Here? Join Now.</a>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
+						@endauth
 					</div><!--top-right-->
 				</div>
 				

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Socialite\Facades\Socialite;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
 
 class OAuthController extends Controller
 {
@@ -15,9 +16,11 @@ class OAuthController extends Controller
         try{
             $google_user = Socialite::driver('google')->user();
             $user = User::where('google_id',$google_user->getId())->first();
+            //dd($google_user);
             if(!$user){
                 $new_user = User::create([
                     'name' => $google_user->getName(),
+                    'username' => $google_user->getName(),
                     'email' => $google_user->getEmail(),
                     'google_id' => $google_user->getId(),
                 ]);
