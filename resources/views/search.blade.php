@@ -13,6 +13,9 @@
 				</form>
 			</div>
 
+			<div style="margin-left: auto; margin-right: auto; width:100%; background-color:red; display:block;">test</div>
+			<div class="loader" id="loader"></div>
+
 			<div class="product-list" data-aos="fade-up">
 				<div class="row" id="search-items">
 					
@@ -36,8 +39,6 @@
 		</div> -->
 	</div>
 </section>
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 
 window.addEventListener("load",(e) => {
@@ -56,7 +57,7 @@ const queryLibrary = (query) => {
 		let data = res.data.docs
 		moreheading.style.display = (data.length > limit) ? 'inline' : 'none'
 		data.every((el,index) => {
-			console.log(index)
+			let author = el.author_name == null ? 'Unknown' : el.author_name[0]
 			if(index < limit){
 				let book = document.createElement('div')
 				book.setAttribute('class','col-md-2 book')
@@ -68,9 +69,9 @@ const queryLibrary = (query) => {
 							<div class="book-details">
 								<span class="book-title">${(el.title)}</span>
 								<br>
-								<span>${(el.author_name[0])}</span>
+								<span>${(author)}</span>
 							</div>
-							<span class="tooltiptext">${el.title} by ${el.author_name[0]}</span>
+							<span class="tooltiptext">${el.title} by ${author}</span>
 						</div>
 					</figcaption>
 				</figure>
@@ -78,7 +79,7 @@ const queryLibrary = (query) => {
 				results.appendChild(book) 
 			}else{
 				let listitem = document.createElement('li')
-				listitem.innerHTML = `<a href="#">${el.title} by ${el.author_name[0]}</a>`
+				listitem.innerHTML = `<a href="#">${el.title} by ${author}</a>`
 				moreresults.appendChild(listitem)
 			}
 			
