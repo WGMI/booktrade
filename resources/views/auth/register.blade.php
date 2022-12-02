@@ -76,9 +76,10 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-outline-dark btn-pill btn-xlarge btn-full">
                                     {{ __('Register') }}
                                 </button>
+                                <a href="{{url('auth/google')}}" class="btn btn-outline-dark btn-pill btn-xlarge btn-full"><i class="fa fa-google" style="font-size:24px;"></i> Register With Google</a>
                             </div>
                         </div>
                     </form>

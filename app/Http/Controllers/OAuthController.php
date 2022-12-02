@@ -16,7 +16,7 @@ class OAuthController extends Controller
         try{
             $google_user = Socialite::driver('google')->user();
             $user = User::where('google_id',$google_user->getId())->first();
-            //dd($google_user);
+            //dd($google_user->getId());
             if(!$user){
                 $new_user = User::create([
                     'name' => $google_user->getName(),
@@ -25,10 +25,10 @@ class OAuthController extends Controller
                     'google_id' => $google_user->getId(),
                 ]);
 
-                Auth::login($new_user);
+                \Auth::login($new_user);
                 return redirect()->intended('/');
             }else{
-                Auth::login($user);
+                \Auth::login($user);
                 return redirect()->intended('/');
             }
         }

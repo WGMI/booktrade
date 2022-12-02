@@ -1,3 +1,39 @@
+<style>
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.drop {
+  position: relative;
+  display: inline-block;
+}
+
+.drop-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.drop-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.drop-content a:hover {background-color: #ddd;}
+
+.drop:hover .drop-content {display: block;}
+
+.drop:hover .dropbtn {background-color: #3e8e41;}
+</style>
 <div id="header-wrap">
 	
 	<div class="top-content">
@@ -34,29 +70,26 @@
                             </div>
                         </div>
                         <a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i>&nbsp<span>Cart</span></a>
-                        <a href="#" class="user-account for-buy" data-bs-toggle="modal" data-bs-target="#login-form">
-							<i class="icon icon-user"></i>
-						</a>
-
-						@auth
-						<div class="modal fade" id="login-form" tabindex="-1" aria-labelledby="login-formLabel" aria-hidden="true">
-							<div class="modal-dialog modal-sm modal-dialog-centered">
-								<div class="modal-content">
-									<div style="display:flex; flex-direction: column; width: 100%; align-items:center; margin:auto;">
-										<a href="">My Account</a>
-										<a href="{{ route('logout') }}"
-										onclick="event.preventDefault();
-														document.getElementById('logout-form').submit();">
-											{{ __('Logout') }}
-										</a>
-										<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-											@csrf
-										</form>
-									</div>
-								</div>
+						<div class="drop">
+							<a href="#" class="user-account for-buy" data-bs-toggle="modal" data-bs-target="#login-form">
+								<i class="icon icon-user"></i>
+							</a>
+							@auth
+							<div class="drop-content">
+								<a href="#">My Account</a>
+								<a href="{{ route('logout') }}"
+								onclick="event.preventDefault();
+												document.getElementById('logout-form').submit();">
+									{{ __('Logout') }}
+								</a>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+									@csrf
+								</form>
 							</div>
+							@endauth
 						</div>
-						@else
+
+						@guest
 						<div class="modal fade" id="login-form" tabindex="-1" aria-labelledby="login-formLabel" aria-hidden="true">
 							<div class="modal-dialog modal-dialog modal-dialog-centered">
 								<div class="modal-content">
@@ -90,7 +123,7 @@
 								</div>
 							</div>
 						</div>
-						@endauth
+						@endguest
 					</div><!--top-right-->
 				</div>
 				
