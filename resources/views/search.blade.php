@@ -7,14 +7,14 @@
 			<div class="col-md-12">
 
 			<div class="search-bar">
-				<form>
-					<input type="text" id="search" placeholder="Search" class="big-search" value="{{$q}}">
-					<button class="search-btn"><i class="icon icon-search"></i></button>
+				<form action="{{url('search')}}" method="get">
+					<input name="query" type="text" id="search" placeholder="Search" class="big-search" value="{{$q}}">
+					<input type="submit" value="search">
+					<!-- <button class="search-btn" type="submit"><i class="icon icon-search"></i></button> -->
 				</form>
 			</div>
 
-			<div style="margin-left: auto; margin-right: auto; width:100%; background-color:red; display:block;">test</div>
-			<div class="loader" id="loader"></div>
+			<div id="loading" class="loading">Loading...</div>
 
 			<div class="product-list" data-aos="fade-up">
 				<div class="row" id="search-items">
@@ -46,6 +46,7 @@ window.addEventListener("load",(e) => {
 	queryLibrary(query)
 })
 
+const loading = document.getElementById('loading')
 const results = document.getElementById('search-items')
 const moreheading = document.getElementById('moreheading')
 const moreresults = document.getElementById('more-results-area')
@@ -54,16 +55,31 @@ const queryLibrary = (query) => {
 	const limit = 12
 	axios.get(`http://openlibrary.org/search.json?q=${query}`)
 	.then((res) => {
+		loading.style.display = 'none';
 		let data = res.data.docs
 		moreheading.style.display = (data.length > limit) ? 'inline' : 'none'
 		data.every((el,index) => {
+			console.log(el.key)
+
 			let author = el.author_name == null ? 'Unknown' : el.author_name[0]
 			if(index < limit){
+				let key 
+				let value 
+
+				if(el.cover_i){
+					key = 'id'
+					value = el.cover_i
+				}else if(el.isbn){
+					key = 'isbn'
+					value = el.isbn[0]
+				}
+
+				let imageurl = `https://covers.openlibrary.org/b/${key}/${value}-M.jpg?default=false`
 				let book = document.createElement('div')
 				book.setAttribute('class','col-md-2 book')
 				book.innerHTML = `
 				<figure class="product-style">
-					<a href=""><img src="images/product-item1.jpg" alt="Books" class="product-item"></a>
+					<a href="book${el.key}"><img src="${imageurl}" onerror="this.src='images/product-item1.jpg'" alt="Cover image" class="product-item"></a>
 					<figcaption>
 						<div class="titletext">
 							<div class="book-details">

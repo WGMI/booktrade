@@ -2,32 +2,23 @@
 
 @section('content')
 
-<section class="bg-sand padding-large">
+<section class="bg-sand padding-small">
 	<div class="container">
 		<div class="row">
+			<input id="workid" type="hidden" value="{{$id}}">
 
-			<div class="col-md-6">
-				<a href="#" class="product-image"><img src="images/main-banner2.jpg"></a>
+			<div class="col-md-4">
+				<img alt="Cover" id="cover" onerror="this.src='images/main-banner2.jpg'" style="object-fit:fill;">
 			</div>
 
-			<div class="col-md-6 pl-5">
+			<div class="col-md-8 pl-5">
 				<div class="product-detail">
-					<h1>Birds Gonna Be Happy</h1>
-					<p>Fiction</p>
-					<span class="price colored">$45.00</span>
+					<h1 id="title">...</h1>
+					<!-- <p>Fiction</p> -->
+					<!-- <span class="price colored">$45.00</span> -->
 
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. 
+					<p id="desc">
 					</p>
-					<p>
-						Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					</p>
-
 					<button type="submit" name="add-to-cart" value="27545" class="button">Add to cart</button>
 					
 				</div>
@@ -36,5 +27,40 @@
 		</div>
 	</div>
 </section>
+
+<script>
+
+let title = document.getElementById('title')
+let description = document.getElementById('desc')
+let cover = document.getElementById('cover')
+
+window.addEventListener("load",(e) => {
+	let workid = document.getElementById('workid').value
+	queryBook(workid)
+})
+
+const queryBook = (work) => {
+	axios.get(`https://openlibrary.org/works/${work}.json`)
+	.then(res => {
+		let data = res.data
+		title.innerHTML = data.title
+		description.innerHTML = data.description
+
+		let key 
+		let value 
+
+		if(data.covers){
+			key = 'id'
+			value = data.covers[0]
+		}
+
+		cover.src = `https://covers.openlibrary.org/b/${key}/${value}-L.jpg?default=false`
+	})
+	.catch(err => {
+		console.log(err)
+	})
+}
+
+</script>
 
 @endsection

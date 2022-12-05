@@ -717,25 +717,38 @@ fieldset[disabled] a.btn {
   cursor: auto;
 }
 
-.loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
+.loading {
+  margin: auto;
+  width:100%;
+  display: block;
+  text-align: center;
+  font-size: 40px;
+  /* Chrome, Safari, Opera */
+ -webkit-animation: PULSE 1s infinite; 
+ 
+ /* Internet Explorer */
+ -ms-animation: PULSE 1s infinite;
+ 
+ /* Standard Syntax */
+ animation: PULSE 1.25s infinite; 
 }
 
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+/* Chrome, Safari, Opera */
+@-webkit-keyframes PULSE{
+  0%{color:rgb(255, 255, 255);}	
+ 110%{color: black;}
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* Internet Explorer */
+@-ms-keyframes PULSE{
+  0%{color:rgb(255, 255, 255);}	
+ 110%{color: black;}
+}
+
+/* Standard Syntax */
+@keyframes PULSE{
+  0%{color:rgb(255, 255, 255);}	
+ 110%{color: black;}
 }
 
 /*====================================================================*/
