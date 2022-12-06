@@ -36,6 +36,7 @@ Version: 1.1
     --body-text-color    : #757575;
     --light-text-color   : #afafaf;
     --dark-text-color    : #2f2f2f;
+    --contrast-color    : #516b9b;
 }
 /* Fonts */
 :root {
@@ -706,7 +707,7 @@ fieldset[disabled] a.btn {
   background-color: #fff;
 }
 
-.bigsearch{
+.bigsearch {
   display: block;
   width: 100%;
   font-size: 19px;
@@ -715,6 +716,22 @@ fieldset[disabled] a.btn {
   line-height: 1;
   background-color: transparent;
   cursor: auto;
+}
+
+.book-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 400px;
+}
+
+.book-controls a {
+  text-decoration: none;
+  color: #fff;
+  background-color: var(--contrast-color);
+  border-radius: 25px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .loading {

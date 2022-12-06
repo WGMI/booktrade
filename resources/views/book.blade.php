@@ -12,9 +12,14 @@
 			</div>
 
 			<div class="col-md-8 pl-5">
+				<div class="book-controls">
+					<a href="">I own this book</a>
+					<a href="">I want this book</a>
+				</div>
 				<div class="product-detail">
 					<h1 id="title">...</h1>
-					<!-- <p>Fiction</p> -->
+					<p id="author">...</p>
+					<!-- <p id="date">...</p> -->
 					<!-- <span class="price colored">$45.00</span> -->
 
 					<p id="desc">
@@ -33,6 +38,8 @@
 let title = document.getElementById('title')
 let description = document.getElementById('desc')
 let cover = document.getElementById('cover')
+let author = document.getElementById('author')
+let date = document.getElementById('date')
 
 window.addEventListener("load",(e) => {
 	let workid = document.getElementById('workid').value
@@ -45,6 +52,8 @@ const queryBook = (work) => {
 		let data = res.data
 		title.innerHTML = data.title
 		description.innerHTML = data.description
+		// date.innerHTML = data.subject_times
+		getauthor(data.authors[0].author.key)
 
 		let key 
 		let value 
@@ -55,6 +64,16 @@ const queryBook = (work) => {
 		}
 
 		cover.src = `https://covers.openlibrary.org/b/${key}/${value}-L.jpg?default=false`
+	})
+	.catch(err => {
+		console.log(err)
+	})
+}
+
+const getauthor = (key) => {
+	axios.get(`https://openlibrary.org${key}.json`)
+	.then(res => {
+		author.innerHTML = (res.data.personal_name)
 	})
 	.catch(err => {
 		console.log(err)
