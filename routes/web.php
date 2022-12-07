@@ -22,9 +22,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/search', [SearchController::class, 'index']);
-Route::get('/book/works/{id}', [BookController::class, 'show']);
+Route::get('/home',[App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/search',[SearchController::class, 'index']);
+
+Route::get('/book/works/{id}',[BookController::class, 'show']);
+Route::post('book',[BookController::class, 'store']);
 
 Route::get('auth/google',[OAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/callback',[OAuthController::class, 'callback'])->name('google-callback');
+
+Route::get('/test',function(){
+    return 1;
+});

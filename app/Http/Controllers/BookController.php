@@ -9,4 +9,8 @@ class BookController extends Controller
     public function show($id){
         return view('book')->with('id',$id);
     }
+
+    public function store(Request $request){
+        return ($request->all());
+    }
 }

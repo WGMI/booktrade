@@ -13,7 +13,7 @@
 
 			<div class="col-md-8 pl-5">
 				<div class="book-controls">
-					<a href="#" data-toggle="modal" data-target="#owner-modal">I own this book</a>
+					<a href="#" data-bs-toggle="modal" data-bs-target="#owner-modal">I own this book</a>
 					<a href="">I want this book</a>
 				</div>
 				<div class="product-detail">
@@ -27,9 +27,27 @@
 			</div>
 
 			<div class="modal fade" id="owner-modal" role="dialog">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
-						test
+						<div class="modal-header">
+							<h1 class="modal-title fs-5">Tell us about the book</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form id="add-book">
+								<input type="hidden" id="new-book-url" value="{{url('book')}}">
+								<label for="condition">Book Condition</label>
+								<select name="condition" class="form-select" id="condition">
+									<option value="Brand New">Brand New</option>
+									<option value="Excellent">Excellent</option>
+									<option value="Good">Good</option>
+									<option value="Satisfactory">Satisfactory</option>
+								</select>
+								<label for="information">Any important information</label>
+								<textarea name="information" id="information" style="width: 100%; max-width: 100%;" rows="10"></textarea>
+								<input class="btn btn-outline-dark btn-pill btn-xlarge btn-full" type="submit" onclick="addbook()" value="Add Book">
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -83,6 +101,15 @@ const getauthor = (key) => {
 	.catch(err => {
 		console.log(err)
 	})
+}
+
+const addbook = () => {
+	let data = new FormData(document.getElementById('add-book'))
+	const url = document.getElementById('new-book-url').value
+	console.log(url)
+	axios.get('/test',{test:'test'})
+	.then(res => console.log(res.data))
+	.catch(err => console.log('Err:',err))
 }
 
 </script>
