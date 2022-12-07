@@ -51,7 +51,7 @@ const queryBook = (work) => {
 	.then(res => {
 		let data = res.data
 		title.innerHTML = data.title
-		description.innerHTML = data.description
+		description.innerHTML = (data.description) ? data.description : `No description. Do you own this book? <a href="">Add a description.</a>`
 		// date.innerHTML = data.subject_times
 		getauthor(data.authors[0].author.key)
 
