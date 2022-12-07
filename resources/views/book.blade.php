@@ -13,7 +13,7 @@
 
 			<div class="col-md-8 pl-5">
 				<div class="book-controls">
-					<a href="">I own this book</a>
+					<a href="#" data-toggle="modal" data-target="#owner-modal">I own this book</a>
 					<a href="">I want this book</a>
 				</div>
 				<div class="product-detail">
@@ -26,6 +26,14 @@
 					</p>
 					<button type="submit" name="add-to-cart" value="27545" class="button">Add to cart</button>
 					
+				</div>
+			</div>
+
+			<div class="modal fade" id="owner-modal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						test
+					</div>
 				</div>
 			</div>
 
