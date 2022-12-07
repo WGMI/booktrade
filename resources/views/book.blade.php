@@ -19,12 +19,9 @@
 				<div class="product-detail">
 					<h1 id="title">...</h1>
 					<p id="author">...</p>
-					<!-- <p id="date">...</p> -->
-					<!-- <span class="price colored">$45.00</span> -->
 
 					<p id="desc">
 					</p>
-					<button type="submit" name="add-to-cart" value="27545" class="button">Add to cart</button>
 					
 				</div>
 			</div>
