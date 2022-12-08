@@ -20,6 +20,10 @@ class CreateBooksTable extends Migration
             $table->string('open_lib_work_id')->nullable();
             $table->string('isbn')->nullable();
             $table->string('description')->nullable();
+            $table->string('information')->nullable();
+            $table->string('condition')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

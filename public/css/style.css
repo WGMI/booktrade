@@ -26,6 +26,13 @@ Version: 1.1
         --header-height : 100px;
         --header-height-min   : 80px;
     }
+
+    .book-controls {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 400px;
+    }
 }
 /* Theme Colors */
 :root {

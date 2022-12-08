@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use Session;
 
 class OAuthController extends Controller
 {
@@ -26,10 +27,10 @@ class OAuthController extends Controller
                 ]);
 
                 \Auth::login($new_user);
-                return redirect()->intended('/');
+                return redirect()->intended(Session::get('url'));
             }else{
                 \Auth::login($user);
-                return redirect()->intended('/');
+                return redirect()->intended(Session::get('url'));
             }
         }
         catch(\Throwable $th){

@@ -1,9 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
-
 <section class="bg-sand padding-small">
 	<div class="container">
+		<div id="message" class="" role="alert">
+		</div>
 		<div class="row">
 			<input id="workid" type="hidden" value="{{$id}}">
 
@@ -13,8 +14,20 @@
 
 			<div class="col-md-8 pl-5">
 				<div class="book-controls">
-					<a href="#" data-bs-toggle="modal" data-bs-target="#owner-modal">I own this book</a>
-					<a href="">I want this book</a>
+					<a href="#" data-bs-toggle="modal" 
+					@auth
+					data-bs-target="#owner-modal"
+					@else 
+					data-bs-target="#login-form"
+					@endauth
+					>I own this book</a>
+					<a href="#"
+					@auth
+					onclick="addbooktowishlist()"
+					@else 
+					data-bs-target="#login-form"
+					@endauth
+					>I want this book</a>
 				</div>
 				<div class="product-detail">
 					<h1 id="title">...</h1>
@@ -34,7 +47,7 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<form id="add-book">
+							<form id="add-book" name="add-book">
 								<input type="hidden" id="new-book-url" value="{{url('book')}}">
 								<label for="condition">Book Condition</label>
 								<select name="condition" class="form-select" id="condition">
@@ -45,7 +58,7 @@
 								</select>
 								<label for="information">Any important information</label>
 								<textarea name="information" id="information" style="width: 100%; max-width: 100%;" rows="10"></textarea>
-								<input class="btn btn-outline-dark btn-pill btn-xlarge btn-full" type="submit" onclick="addbook()" value="Add Book">
+								<input class="btn btn-outline-dark btn-pill btn-xlarge btn-full" data-bs-dismiss="modal" onclick="addbooktolibrary()" type="button" value="ADD BOOK" style="font-weight:bold;">
 							</form>
 						</div>
 					</div>
@@ -63,27 +76,27 @@ let description = document.getElementById('desc')
 let cover = document.getElementById('cover')
 let author = document.getElementById('author')
 let date = document.getElementById('date')
+let workid = document.getElementById('workid').value
 
 window.addEventListener("load",(e) => {
-	let workid = document.getElementById('workid').value
 	queryBook(workid)
 })
 
-const queryBook = (work) => {
-	axios.get(`https://openlibrary.org/works/${work}.json`)
+const queryBook = (workid) => {
+	axios.get(`https://openlibrary.org/works/${workid}.json`)
 	.then(res => {
-		let data = res.data
-		title.innerHTML = data.title
-		description.innerHTML = (data.description) ? data.description : `No description. Do you own this book? <a href="">Add a description.</a>`
-		// date.innerHTML = data.subject_times
-		getauthor(data.authors[0].author.key)
+		work = res.data
+		title.innerHTML = work.title
+		description.innerHTML = (work.description) ? work.description : `No description. Do you own this book? <a href="">Add a description.</a>`
+		// date.innerHTML = work.subject_times
+		getauthor(work.authors[0].author.key)
 
 		let key 
 		let value 
 
-		if(data.covers){
+		if(work.covers){
 			key = 'id'
-			value = data.covers[0]
+			value = work.covers[0]
 		}
 
 		cover.src = `https://covers.openlibrary.org/b/${key}/${value}-L.jpg?default=false`
@@ -96,20 +109,49 @@ const queryBook = (work) => {
 const getauthor = (key) => {
 	axios.get(`https://openlibrary.org${key}.json`)
 	.then(res => {
-		author.innerHTML = (res.data.personal_name)
+		name = res.data.personal_name
+		author.innerHTML = (name)
 	})
 	.catch(err => {
 		console.log(err)
 	})
 }
 
-const addbook = () => {
+const addbooktowishlist = () => {
+	
+}
+
+const addbooktolibrary = () => {
 	let data = new FormData(document.getElementById('add-book'))
 	const url = document.getElementById('new-book-url').value
-	console.log(url)
-	axios.get('/test',{test:'test'})
-	.then(res => console.log(res.data))
-	.catch(err => console.log('Err:',err))
+	data.append('title',work.title)
+	data.append('author',name)
+	data.append('open_lib_work_id',workid)
+	axios.post(url,data)
+	.then(res => {
+		console.log(res.data)
+		if (res.data == 1){
+			showmessage(`${title.innerHTML} is now in your library.`,'success')
+		}else if (res.data == 0){
+			showmessage(`${title.innerHTML} is already in your library.`,'success')
+		}else{
+			showmessage('Something went wrong. Please try again.','error')
+		}
+	})
+	.catch(err => {
+		showmessage('Something went wrong. Please try again.','error')
+	})
+}
+
+const showmessage = (msg,type) => {
+	const flash = document.getElementById('message')
+	flash.classList.add('alert')
+	flash.classList.add((type == 'success') ? 'alert-success' : 'alert-danger')
+	flash.innerHTML = msg
+	setTimeout(() => {
+		flash.className = ''
+		flash.innerHTML = ''
+	}, 3000);
 }
 
 </script>

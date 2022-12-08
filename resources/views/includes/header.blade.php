@@ -34,6 +34,9 @@
 
 .drop:hover .dropbtn {background-color: #3e8e41;}
 </style>
+@php
+Session::put('url',Request::url());
+@endphp
 <div id="header-wrap">
 	<div class="top-content">
 		<div class="container">
@@ -115,7 +118,7 @@
 											@enderror
 
 											<input type="submit" class="btn btn-outline-dark btn-pill btn-xlarge btn-full" value="Login">
-											<a href="{{url('auth/google')}}" class="btn btn-outline-dark btn-pill btn-xlarge btn-full"><i class="fa fa-google" style="font-size:24px;"></i> Login With Google</a>
+											<a href="{{url('auth/google')}}" class="btn btn-outline-dark btn-pill btn-xlarge btn-full"><i class="fa fa-google" style="font-size:24px;"></i> Enter With Google</a>
 											<a href="{{url('/register')}}" style="text-decoration:underline;">New Here? Join Now.</a>
 										</form>
 									</div>

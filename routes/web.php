@@ -32,5 +32,5 @@ Route::get('auth/google',[OAuthController::class, 'redirect'])->name('google-aut
 Route::get('auth/google/callback',[OAuthController::class, 'callback'])->name('google-callback');
 
 Route::get('/test',function(){
-    return 1;
+    echo Session::get('url');
 });
