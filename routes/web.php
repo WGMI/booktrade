@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\OAuthController;
+use App\Http\Controllers\WishController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +24,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home',[App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('auth/google/callback',[OAuthController::class, 'callback'])->name('google-callback');
+Route::get('auth/google',[OAuthController::class, 'redirect'])->name('google-auth');
+
 Route::get('/search',[SearchController::class, 'index']);
 
 Route::get('/book/works/{id}',[BookController::class, 'show']);
 Route::post('book',[BookController::class, 'store']);
+Route::post('wish',[WishController::class,'store']);
 
-Route::get('auth/google',[OAuthController::class, 'redirect'])->name('google-auth');
-Route::get('auth/google/callback',[OAuthController::class, 'callback'])->name('google-callback');
 
 Route::get('/test',function(){
     echo Session::get('url');

@@ -12,22 +12,25 @@
 				<img alt="Cover" id="cover" onerror="this.src='images/main-banner2.jpg'" style="object-fit:fill;">
 			</div>
 
-			<div class="col-md-8 pl-5">
+			 <div class="col-md-8 pl-5">
 				<div class="book-controls">
 					<a href="#" data-bs-toggle="modal" 
-					@auth
-					data-bs-target="#owner-modal"
-					@else 
-					data-bs-target="#login-form"
-					@endauth
-					>I own this book</a>
+						@auth
+						data-bs-target="#owner-modal"
+						@else 
+						data-bs-target="#login-form"
+						@endauth>
+						I own this book
+					</a>
 					<a href="#"
-					@auth
-					onclick="addbooktowishlist()"
-					@else 
-					data-bs-target="#login-form"
-					@endauth
-					>I want this book</a>
+						@auth
+						onclick="addbooktowishlist()"
+						@else 
+						data-bs-target="#login-form"
+						@endauth>
+						I want this book
+					</a>
+					<input type="hidden" id="new-wish-url" value="{{url('wish')}}">
 				</div>
 				<div class="product-detail">
 					<h1 id="title">...</h1>
@@ -37,7 +40,7 @@
 					</p>
 					
 				</div>
-			</div>
+			</div> 
 
 			<div class="modal fade" id="owner-modal" role="dialog">
 				<div class="modal-dialog modal-dialog-centered">
@@ -87,7 +90,7 @@ const queryBook = (workid) => {
 	.then(res => {
 		work = res.data
 		title.innerHTML = work.title
-		description.innerHTML = (work.description) ? work.description : `No description. Do you own this book? <a href="">Add a description.</a>`
+		description.innerHTML = (work.description) ? work.description : `No description. Do you own this book? <a href="#">Add a description.</a>`
 		// date.innerHTML = work.subject_times
 		getauthor(work.authors[0].author.key)
 
@@ -118,7 +121,18 @@ const getauthor = (key) => {
 }
 
 const addbooktowishlist = () => {
-	
+	const url = document.getElementById('new-wish-url').value
+	axios.post(url,{
+		title: title.innerHTML,
+		open_lib_work_id: workid
+	})
+	.then(res => {
+		showmessage(`${title.innerHTML} is now in your wish list.`,'success')
+	})
+	.catch(err => {
+		console.log(err)
+		showmessage('Something went wrong. Please try again.','error')
+	})
 }
 
 const addbooktolibrary = () => {
