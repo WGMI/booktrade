@@ -17,12 +17,12 @@ class OAuthController extends Controller
         try{
             $google_user = Socialite::driver('google')->user();
             $user = User::where('google_id',$google_user->getId())->first();
-            //dd($google_user->getId());
             if(!$user){
                 $new_user = User::create([
                     'name' => $google_user->getName(),
                     'username' => $google_user->getName(),
                     'email' => $google_user->getEmail(),
+                    'avatar' => $google_user->avatar,
                     'google_id' => $google_user->getId(),
                 ]);
 
