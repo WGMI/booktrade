@@ -102,7 +102,8 @@ const queryBook = (workid) => {
 			value = work.covers[0]
 		}
 
-		cover.src = `https://covers.openlibrary.org/b/${key}/${value}-L.jpg?default=false`
+		imageurl = `https://covers.openlibrary.org/b/${key}/${value}-L.jpg?default=false`
+		cover.src = imageurl
 	})
 	.catch(err => {
 		console.log(err)
@@ -141,6 +142,7 @@ const addbooktolibrary = () => {
 	data.append('title',work.title)
 	data.append('author',name)
 	data.append('open_lib_work_id',workid)
+	data.append('imageurl',imageurl+'.jpg')
 	axios.post(url,data)
 	.then(res => {
 		console.log(res.data)

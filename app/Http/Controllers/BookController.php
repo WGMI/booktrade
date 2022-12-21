@@ -17,6 +17,12 @@ class BookController extends Controller
             return 0;
         }
 
+        $url = $request->imageurl;
+        $contents = file_get_contents($url);
+        $name = $request->open_lib_work_id.'.jpg';
+        // \Illuminate\Support\Facades\Storage::disk('public')->put('images/covers/'.$name,$contents);
+        Storage::put('images/covers/'.$name,$contents);
+
         Book::create([
             'title' => $request->title,
             'author' => $request->author,

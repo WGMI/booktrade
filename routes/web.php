@@ -5,6 +5,7 @@ use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\WishController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +18,9 @@ use App\Http\Controllers\WishController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
 Auth::routes();
 
-Route::get('/home',[App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/',[HomeController::class, 'index'])->name('home');
 
 Route::get('auth/google/callback',[OAuthController::class, 'callback'])->name('google-callback');
 Route::get('auth/google',[OAuthController::class, 'redirect'])->name('google-auth');

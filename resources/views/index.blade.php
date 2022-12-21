@@ -13,45 +13,19 @@
 			<div class="product-list" data-aos="fade-up">
 				<div class="row">
 
+					@foreach($featured as $book)
+
 					<div class="col-md-3">
 						<figure class="product-style">
-							<a href="{{url('book/1')}}"><img src="images/product-item1.jpg" alt="Books" class="product-item"></a>
+							<a href="{{url('book/works/'.$book->open_lib_work_id)}}"><img src="{{url('storage/images/covers/'.$book->open_lib_work_id.'.jpg')}}" onerror="this.src='images/product-item1.jpg'" alt="Books" class="product-item"></a>
 							<figcaption>
-								<h3>Simple way of piece life</h3>
-								<p>Armor Ramsey</p>
-							</figcaption>
-						</figure>
-					</div>
-				
-					<div class="col-md-3">
-						<figure class="product-style">
-							<a href="{{url('book/1')}}"><img src="images/product-item2.jpg" alt="Books" class="product-item"></a>
-							<figcaption>
-								<h3>Great travel at desert</h3>
-								<p>Sanchit Howdy</p>
+								<h3>{{$book->title}}</h3>
+								<p>{{$book->author}}</p>
 							</figcaption>
 						</figure>
 					</div>
 
-					<div class="col-md-3">
-						<figure class="product-style">
-							<a href="{{url('book/1')}}"><img src="images/product-item3.jpg" alt="Books" class="product-item"></a>
-							<figcaption>
-								<h3>The lady beauty Scarlett</h3>
-								<p>Arthur Doyle</p>
-							</figcaption>
-						</figure>
-					</div>
-									
-					<div class="col-md-3">
-						<figure class="product-style">
-							<a href="{{url('book/1')}}"><img src="images/product-item4.jpg" alt="Books" class="product-item"></a>
-							<figcaption>
-								<h3>Once upon a time</h3>
-								<p>Klien Marry</p>
-							</figcaption>
-						</figure>
-					</div>
+					@endforeach
 
 			    </div><!--ft-books-slider-->				
 			</div><!--grid-->
