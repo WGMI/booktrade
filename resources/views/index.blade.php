@@ -11,13 +11,12 @@
 			</div>
 
 			<div class="product-list" data-aos="fade-up">
-				<div class="row">
-
+				<div class="row" id="featured">
 					@foreach($featured as $book)
 
 					<div class="col-md-3">
 						<figure class="product-style">
-							<a href="{{url('book/works/'.$book->open_lib_work_id)}}"><img src="{{url('storage/images/covers/'.$book->open_lib_work_id.'.jpg')}}" onerror="this.src='images/product-item1.jpg'" alt="Books" class="product-item"></a>
+							<a href="{{url('book/works/'.$book->open_lib_work_id)}}"><img src="{{$book->cover_url}}" onerror="this.src='images/product-item1.jpg'" alt="Books" class="product-item"></a>
 							<figcaption>
 								<h3>{{$book->title}}</h3>
 								<p>{{$book->author}}</p>

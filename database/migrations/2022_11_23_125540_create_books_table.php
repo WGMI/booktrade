@@ -18,6 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->string('author');
             $table->string('open_lib_work_id')->nullable();
+            $table->string('cover_url')->nullable();
             $table->string('isbn')->nullable();
             $table->string('description')->nullable();
             $table->string('information')->nullable();
