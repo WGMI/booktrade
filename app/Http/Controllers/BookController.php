@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Storage;
 use App\Models\Book;
+use App\Models\Wish;
 
 class BookController extends Controller
 {
     public function show($id){
         $ownedbooks = Book::where('open_lib_work_id',$id)->get();
-        return view('book')->with(['id' => $id, 'ownedbooks' => $ownedbooks]);
+        $wishes = Wish::where('open_lib_work_id',$id)->get();
+        return view('book')->with(['id' => $id, 'ownedbooks' => $ownedbooks, 'wishes' => $wishes]);
     }
 
     public function store(Request $request){

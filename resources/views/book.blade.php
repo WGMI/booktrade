@@ -22,7 +22,7 @@
 						@endauth>
 						I own this book
 					</a>
-					<a href="#"
+					<a href="#" data-bs-toggle="modal" 
 						@auth
 						onclick="addbooktowishlist()"
 						@else 
@@ -95,7 +95,17 @@
 			</ul>
 			@endforeach
 
-			
+			@if($wishes)
+			<div>
+				<h3>Users Who Want This Book</h3>
+			</div>
+			@endif
+
+			<ul>
+			@foreach($wishes as $w)
+				<li><a href="">{{App\Models\User::find($b->user_id)->name}}</a></li>
+			@endforeach
+			</u>
 
 		</div>
 	</div>
@@ -157,7 +167,14 @@ const addbooktowishlist = () => {
 		open_lib_work_id: workid
 	})
 	.then(res => {
-		showmessage(`${title.innerHTML} is now in your wish list.`,'success')
+		if (res.data == 1){
+			showmessage(`${title.innerHTML} is now in your wish list.`,'success')
+		}else if (res.data == 0){
+			showmessage(`${title.innerHTML} is already in your wish list.`,'success')
+		}else{
+			showmessage('Something went wrong. Please try again.','error')
+		}
+		
 	})
 	.catch(err => {
 		console.log(err)
@@ -174,7 +191,6 @@ const addbooktolibrary = () => {
 	data.append('imageurl',imageurl+'.jpg')
 	axios.post(url,data)
 	.then(res => {
-		console.log(res.data)
 		if (res.data == 1){
 			showmessage(`${title.innerHTML} is now in your library.`,'success')
 		}else if (res.data == 0){
