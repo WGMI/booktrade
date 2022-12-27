@@ -757,6 +757,18 @@ fieldset[disabled] a.btn {
  animation: PULSE 1.25s infinite; 
 }
 
+.offeruser{
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+}
+
+.offer-condition{
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
 /* Chrome, Safari, Opera */
 @-webkit-keyframes PULSE{
   0%{color:rgb(255, 255, 255);}	

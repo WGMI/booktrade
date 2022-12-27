@@ -9,7 +9,8 @@ use App\Models\Book;
 class BookController extends Controller
 {
     public function show($id){
-        return view('book')->with('id',$id);
+        $ownedbooks = Book::where('open_lib_work_id',$id)->get();
+        return view('book')->with(['id' => $id, 'ownedbooks' => $ownedbooks]);
     }
 
     public function store(Request $request){

@@ -68,6 +68,35 @@
 				</div>
 			</div>
 
+			@if($ownedbooks)
+			<div>
+				<h3>Offers</h3>
+			</div>
+			@endif
+
+			@foreach($ownedbooks as $b)
+			<ul class="list-group">
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					<div class="offeruser">
+						<img src="{{App\Models\User::find($b->user_id)->avatar ?? asset('images/avatar.png')}}" alt="Image" class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; margin: 10px">
+						<h4>{{App\Models\User::find($b->user_id)->name}}</h4>
+					</div>
+					<div class="offer-condition">
+						<h3>{{$b->condition}}</h3>
+						<p>Added on: {{Carbon\Carbon::parse($b->created_at)->format('d, M, Y')}}</p>
+					</div>
+					<div class="offer-condition">
+						<p>{{$b->information}}</p>
+					</div>
+					<div>
+						<button>Order</button>
+					</div>
+				</li>
+			</ul>
+			@endforeach
+
+			
+
 		</div>
 	</div>
 </section>
