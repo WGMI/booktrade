@@ -129,7 +129,7 @@ const queryBook = (workid) => {
 	.then(res => {
 		work = res.data
 		title.innerHTML = work.title
-		description.innerHTML = (work.description) ? work.description : `No description. Do you own this book? <a href="#">Add a description.</a>`
+		description.innerHTML = (work.description) ? (work.description) : `No description. Do you own this book? <a href="#">Add a description.</a>`
 		// date.innerHTML = work.subject_times
 		getauthor(work.authors[0].author.key)
 

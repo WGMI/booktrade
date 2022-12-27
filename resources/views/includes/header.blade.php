@@ -79,6 +79,7 @@ Session::put('url',Request::url());
 							@auth
 							<div class="drop-content">
 								<a href="#">My Account</a>
+								<a href="{{url('library')}}">My Library</a>
 								<a href="{{ route('logout') }}"
 								onclick="event.preventDefault();
 												document.getElementById('logout-form').submit();">

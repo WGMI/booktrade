@@ -26,11 +26,13 @@ Route::get('auth/google/callback',[OAuthController::class, 'callback'])->name('g
 Route::get('auth/google',[OAuthController::class, 'redirect'])->name('google-auth');
 
 Route::get('/search',[SearchController::class, 'index']);
-
 Route::get('/book/works/{id}',[BookController::class, 'show']);
-Route::post('book',[BookController::class, 'store']);
-Route::post('wish',[WishController::class,'store']);
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('library',[BookController::class, 'showlibrary']);
+    Route::post('book',[BookController::class, 'store']);
+    Route::post('wish',[WishController::class,'store']);
+});
 
 Route::get('/test',function(){
     echo Session::get('url');

@@ -56,6 +56,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
+                                <a href="{{url('auth/google')}}" class="btn btn-outline-dark btn-pill btn-xlarge btn-full"><i class="fa fa-google" style="font-size:24px;"></i> Enter With Google</a>
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
