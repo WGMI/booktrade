@@ -74,11 +74,13 @@
 			</div>
 			@endif
 
+			<input type="hidden" id="cart-url" value="{{url('cart')}}">
+
 			@foreach($ownedbooks as $b)
 			<ul class="list-group">
 				<li class="list-group-item d-flex justify-content-between align-items-center">
 					<div class="offeruser">
-						<img src="{{App\Models\User::find($b->user_id)->avatar ?? asset('images/avatar.png')}}" alt="Image" class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; margin: 10px">
+						<img src="{{App\Models\User::find($b->user_id)->avatar ?? asset('images/avatar.png')}}" alt="Image" class="mr-3" style="width: 50px; height: 50px; border-radius: 50%; margin: 10px" referrerpolicy="no-referrer">
 						<h4>{{App\Models\User::find($b->user_id)->name}}</h4>
 					</div>
 					<div class="offer-condition">
@@ -89,13 +91,13 @@
 						<p>{{$b->information}}</p>
 					</div>
 					<div>
-						<button>Order</button>
+						<button onclick="addbooktocart()">Order</button>
 					</div>
 				</li>
 			</ul>
 			@endforeach
 
-			@if($wishes)
+			@if(sizeof($wishes))
 			<div>
 				<h3>Users Who Want This Book</h3>
 			</div>
@@ -201,6 +203,25 @@ const addbooktolibrary = () => {
 	})
 	.catch(err => {
 		showmessage('Something went wrong. Please try again.','error')
+	})
+}
+
+const addbooktocart = () => {
+	let url = document.getElementById('cart-url').value
+	let data = {
+		id: workid,
+		name: work.title
+	}
+	axios.post(url,data)
+	.then(res => {
+		if (res.data == 1){
+			console.log(res.data)
+		}else{
+			console.log(res.data)
+		}
+	})
+	.catch(err => {
+		console.log(res.data)
 	})
 }
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\WishController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -32,8 +33,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('library',[BookController::class, 'showlibrary']);
     Route::post('book',[BookController::class, 'store']);
     Route::post('wish',[WishController::class,'store']);
+    Route::post('cart',[CartController::class,'store']);
 });
 
 Route::get('/test',function(){
-    echo Session::get('url');
+    echo (Cart::content());
+});
+
+Route::get('/empty',function(){
+    Cart::destroy();
 });
