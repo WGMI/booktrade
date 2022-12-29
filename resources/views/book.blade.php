@@ -91,9 +91,26 @@
 						<p>{{$b->information}}</p>
 					</div>
 					<div>
-						<button onclick="addbooktocart()">Order</button>
+						<button 
+						@auth
+						onclick="addbooktocart({{$b->id}})"
+						@else 
+						data-bs-toggle="modal" 
+						data-bs-target="#login-form"
+						@endauth>Order</button>
 					</div>
 				</li>
+				<p 
+				id="added-msg-{{$b->id}}" 
+				style="
+				display:none;
+				background-color:#C5A992;
+				color:white;
+				font-weight:bold;
+				padding-left:20px;
+				padding:5px;
+				border-radius:5px;
+				">Added to cart</p>
 			</ul>
 			@endforeach
 
@@ -206,7 +223,7 @@ const addbooktolibrary = () => {
 	})
 }
 
-const addbooktocart = () => {
+const addbooktocart = (offerid) => {
 	let url = document.getElementById('cart-url').value
 	let data = {
 		id: workid,
@@ -216,8 +233,14 @@ const addbooktocart = () => {
 	.then(res => {
 		if (res.data == 1){
 			console.log(res.data)
+			// document.getElementById('cart-badge').style.display = 'inline';
+			document.getElementById(`added-msg-${offerid}`).style.display = 'inline';
+			setTimeout(() => {
+				document.getElementById(`added-msg-${offerid}`).style.display = 'none';
+			}, 3000);
 		}else{
 			console.log(res.data)
+			
 		}
 	})
 	.catch(err => {

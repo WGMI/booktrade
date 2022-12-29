@@ -71,7 +71,13 @@ Session::put('url',Request::url());
                                 </form>
                             </div>
                         </div>
-                        <a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i>&nbsp<span>Cart</span></a>
+                        <a href="#" id="cart-link" class="cart for-buy">
+							<i class="icon icon-clipboard"></i>&nbsp<span>Cart</span>
+							<!-- <span id="cart-badge" style="background-color:blue;color:white;padding-left:2px;padding-right:2px;border-radius:5px;display:none">1</span> -->
+							@if(Cart::count())
+							<span style="background-color:blue;color:white;padding-left:2px;padding-right:2px;border-radius:5px">{{Cart::count()}}</span>
+							@endif
+						</a>
 						<div class="drop">
 							<a href="#" class="user-account for-buy" data-bs-toggle="modal" data-bs-target="#login-form">
 								<i class="icon icon-user"></i>
