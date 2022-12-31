@@ -12,7 +12,7 @@
 				<img alt="Cover" id="cover" onerror="this.src='images/main-banner2.jpg'" style="object-fit:fill;">
 			</div>
 
-			 <div class="col-md-8 pl-5">
+			<div class="col-md-8 pl-5">
 				<div class="book-controls">
 					<a href="#" data-bs-toggle="modal" 
 						@auth
@@ -68,7 +68,7 @@
 				</div>
 			</div>
 
-			@if($ownedbooks)
+			@if(sizeof($ownedbooks))
 			<div>
 				<h3>Offers</h3>
 			</div>
@@ -240,7 +240,11 @@ const addbooktocart = (offerid) => {
 			}, 3000);
 		}else{
 			console.log(res.data)
-			
+			document.getElementById(`added-msg-${offerid}`).innerHTML = 'A book is already in your cart. You must complete that checkout first.';
+			document.getElementById(`added-msg-${offerid}`).style.display = 'inline';
+			setTimeout(() => {
+				document.getElementById(`added-msg-${offerid}`).style.display = 'none';
+			}, 4500);
 		}
 	})
 	.catch(err => {
