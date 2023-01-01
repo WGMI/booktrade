@@ -3,6 +3,11 @@
 
 <section id="featured-books">
 	<div class="container">
+
+	@if(session()->has('order_success'))
+		<div id="message" class="alert alert-success" role="alert">{{session('order_success')}} <a href="#" onclick="document.getElementById('message').innerHTML = '';document.getElementById('message').classList = ''">Close</a></div>
+	@endif
+
 		<div class="row">
 			<div class="col-md-12">
 

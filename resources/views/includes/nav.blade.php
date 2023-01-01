@@ -1,7 +1,17 @@
 <nav id="navbar">
 	<div class="main-menu stellarnav">
 		<ul class="menu-list">
-			<li class="menu-item active"><a href="{{url('/')}}" data-effect="Home">Home</a></li>
+			<li class="menu-item"><a href="{{url('/')}}" data-effect="Home">Home</a></li>
+			<li class="menu-item">
+				<a href="{{url('orders')}}" data-effect="Home">
+					Orders 
+					@auth
+					@if(sizeof(auth()->user()->orders) + sizeof(\App\Models\Order::where('owner_id',auth()->user()->id)->get()))
+					<span style="background-color:blue;color:white;padding-left:2px;padding-right:2px;border-radius:5px">{{sizeof(auth()->user()->orders) + sizeof(\App\Models\Order::where('owner_id',auth()->user()->id)->get())}}</span>
+					@endif
+					@endauth
+				</a>
+			</li>
 			<li class="menu-item"><a href="#about" class="nav-link" data-effect="About">About</a></li>
 			<!-- <li class="menu-item has-sub">
 				<a href="#pages" class="nav-link" data-effect="Pages">Pages</a>
