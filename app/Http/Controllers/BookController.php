@@ -11,8 +11,9 @@ class BookController extends Controller
 {
     public function show($id){
         $ownedbooks = Book::where('open_lib_work_id',$id)->get();
+        $ownedbook = (auth()->user()) ? Book::where(['user_id'=>auth()->user()->id,'open_lib_work_id'=>$id])->get() : null;
         $wishes = Wish::where('open_lib_work_id',$id)->get();
-        return view('book')->with(['id' => $id, 'ownedbooks' => $ownedbooks, 'wishes' => $wishes]);
+        return view('book')->with(['id' => $id, 'ownedbooks' => $ownedbooks, 'wishes' => $wishes, 'ownedbook' => $ownedbook]);
     }
 
     public function showlibrary(){

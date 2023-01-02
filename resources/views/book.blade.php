@@ -14,6 +14,7 @@
 
 			<div class="col-md-8 pl-5">
 				<div class="book-controls">
+					@if(!$ownedbook)
 					<a href="#" data-bs-toggle="modal" 
 						@auth
 						data-bs-target="#owner-modal"
@@ -22,6 +23,17 @@
 						@endauth>
 						I own this book
 					</a>
+					@else
+					<a href="#" data-bs-toggle="modal" 
+						@auth
+						data-bs-target="#owner-modal"
+						@else 
+						data-bs-target="#login-form"
+						@endauth>
+						Edit details
+					</a>
+					@endif
+					@if(!$ownedbook)
 					<a href="#" data-bs-toggle="modal" 
 						@auth
 						onclick="addbooktowishlist()"
@@ -30,6 +42,7 @@
 						@endauth>
 						I want this book
 					</a>
+					@endif
 					<input type="hidden" id="new-wish-url" value="{{url('wish')}}">
 				</div>
 				<div class="product-detail">
@@ -77,7 +90,6 @@
 			<input type="hidden" id="cart-url" value="{{url('cart')}}">
 
 			@foreach($ownedbooks as $b)
-			@if($b->user_id !== auth()->user()->id)
 			<ul class="list-group">
 				<li class="list-group-item d-flex justify-content-between align-items-center">
 					<div class="offeruser">
@@ -91,6 +103,9 @@
 					<div class="offer-condition">
 						<p>{{$b->information}}</p>
 					</div>
+					@auth
+					@if(App\Models\User::find($b->user_id)->id == auth()->user()->id)
+					@else
 					<div>
 						<button 
 						@auth
@@ -100,6 +115,18 @@
 						data-bs-target="#login-form"
 						@endauth>Order</button>
 					</div>
+					@endif
+					@else
+					<div>
+						<button 
+						@auth
+						onclick="addbooktocart({{$b->id}})"
+						@else 
+						data-bs-toggle="modal" 
+						data-bs-target="#login-form"
+						@endauth>Order</button>
+					</div>
+					@endauth
 				</li>
 				<p 
 				id="added-msg-{{$b->id}}" 
@@ -113,7 +140,6 @@
 				border-radius:5px;
 				">Added to cart</p>
 			</ul>
-			@endif
 			@endforeach
 
 			@if(sizeof($wishes))
