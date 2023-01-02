@@ -79,7 +79,7 @@ const queryLibrary = (query) => {
 				book.setAttribute('class','col-md-2 book')
 				book.innerHTML = `
 				<figure class="product-style">
-					<a href="book${el.key}"><img src="${imageurl}" onerror="this.src='images/product-item1.jpg'" alt="Cover image" class="product-item"></a>
+					<a href="book${el.key}"><img src="${imageurl}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Cover image" class="product-item"></a>
 					<figcaption>
 						<div class="titletext">
 							<div class="book-details">

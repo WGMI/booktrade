@@ -7,6 +7,7 @@
 			<div class="col-md-12">
                 <div class="section-header align-center">
                     <h2 class="section-title">Orders</h2>
+                    <h3>{{sizeof($orders)}} @choice('Order|Orders',sizeof($orders)) and {{sizeof($offers)}} @choice('Offer|Offers',sizeof($offers))</h3>
                 </div>
 
                 @if(sizeof($orders))
@@ -23,12 +24,12 @@
                     @if($offered_book)
                     <p>{{$ordered_book->title}} for {{$offered_book->title}}</p>
                     @else
-                    <p>Select a book from your library to trade for {{$ordered_book->title}}</p>
+                    <p><a href="{{url('library/offer/'.$o->id)}}">Select</a> a book from your library to trade for {{$ordered_book->title}}</p>
                     @endif
 
                     <div class="col-md-3">
                         <figure class="product-style">
-                            <a href="{{url('book/works/'.$ordered_book->open_lib_work_id)}}"><img src="{{$ordered_book->cover_url}}" onerror="this.src='images/product-item1.jpg'" alt="Books" class="product-item"></a>
+                            <a href="{{url('book/works/'.$ordered_book->open_lib_work_id)}}"><img src="{{$ordered_book->cover_url}}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Books" class="product-item"></a>
                             <figcaption>
                                 <h3>{{$ordered_book->title}}</h3>
                                 <p>{{$ordered_book->author}}</p>
@@ -39,7 +40,7 @@
                     @if($o->offered_book_id)
                     <div class="col-md-3">
                         <figure class="product-style">
-                            <a href="{{url('book/works/'.$offered_book->open_lib_work_id)}}"><img src="{{$offered_book->cover_url}}" onerror="this.src='images/product-item1.jpg'" alt="Books" class="product-item"></a>
+                            <a href="{{url('book/works/'.$offered_book->open_lib_work_id)}}"><img src="{{$offered_book->cover_url}}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Books" class="product-item"></a>
                             <figcaption>
                                 <h3>{{$offered_book->title}}</h3>
                                 <p>{{$offered_book->author}}</p>
@@ -80,7 +81,7 @@
 
                     <div class="col-md-3">
                         <figure class="product-style">
-                            <a href="{{url('book/works/'.$ordered_book->open_lib_work_id)}}"><img src="{{$ordered_book->cover_url}}" onerror="this.src='images/product-item1.jpg'" alt="Books" class="product-item"></a>
+                            <a href="{{url('book/works/'.$ordered_book->open_lib_work_id)}}"><img src="{{$ordered_book->cover_url}}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Books" class="product-item"></a>
                             <figcaption>
                                 <h3>{{$ordered_book->title}}</h3>
                                 <p>{{$ordered_book->author}}</p>
@@ -91,7 +92,7 @@
                     @if($o->offered_book_id)
                     <div class="col-md-3">
                         <figure class="product-style">
-                            <a href="{{url('book/works/'.$offered_book->open_lib_work_id)}}"><img src="{{$offered_book->cover_url}}" onerror="this.src='images/product-item1.jpg'" alt="Books" class="product-item"></a>
+                            <a href="{{url('book/works/'.$offered_book->open_lib_work_id)}}"><img src="{{$offered_book->cover_url}}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Books" class="product-item"></a>
                             <figcaption>
                                 <h3>{{$offered_book->title}}</h3>
                                 <p>{{$offered_book->author}}</p>

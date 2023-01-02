@@ -14,7 +14,7 @@
 
 			@foreach(Cart::content() as $book)
 			<div class="col-md-3">
-				<img src="{{\App\Models\Book::where('open_lib_work_id',$book->id)->first()->cover_url}}" alt="Cover" id="cover" onerror="this.src='images/main-banner2.jpg'" style="object-fit:fill; max-height:200px;">
+				<img src="{{\App\Models\Book::where('open_lib_work_id',$book->id)->first()->cover_url}}" alt="Cover" id="cover" onerror="this.src='{{asset("images/product-item1.jpg")}}'" style="object-fit:fill; max-height:200px;">
 			</div>
 			<div class="col-md-8 pl-4">
 				<div class="product-detail">

@@ -9,7 +9,7 @@
 			<input id="workid" type="hidden" value="{{$id}}">
 
 			<div class="col-md-4">
-				<img alt="Cover" id="cover" onerror="this.src='images/main-banner2.jpg'" style="object-fit:fill;">
+				<img alt="Cover" id="cover" onerror="this.src='{{asset("images/product-item1.jpg")}}'" style="object-fit:fill;">
 			</div>
 
 			<div class="col-md-8 pl-5">

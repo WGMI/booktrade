@@ -15,7 +15,7 @@
 					@foreach($books as $b)
 					<div class="col-md-3 book">
 						<figure class="product-style">
-							<a href="book{{'/'.$b->open_lib_work_id}}"><img src="{{$b->cover_url}}" onerror="this.src='images/product-item1.jpg'" alt="Cover image" class="product-item"></a>
+							<a href="{{url('book/works/'.$b->open_lib_work_id)}}"><img src="{{$b->cover_url}}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Cover image" class="product-item"></a>
 							<figcaption>
 								<div class="titletext">
 									<div class="book-details">
