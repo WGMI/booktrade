@@ -77,6 +77,7 @@
 			<input type="hidden" id="cart-url" value="{{url('cart')}}">
 
 			@foreach($ownedbooks as $b)
+			@if($b->user_id !== auth()->user()->id)
 			<ul class="list-group">
 				<li class="list-group-item d-flex justify-content-between align-items-center">
 					<div class="offeruser">
@@ -112,6 +113,7 @@
 				border-radius:5px;
 				">Added to cart</p>
 			</ul>
+			@endif
 			@endforeach
 
 			@if(sizeof($wishes))
