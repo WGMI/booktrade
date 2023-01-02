@@ -67,14 +67,15 @@
 								<input type="hidden" id="new-book-url" value="{{url('book')}}">
 								<label for="condition">Book Condition</label>
 								<select name="condition" class="form-select" id="condition">
-									<option value="Brand New">Brand New</option>
-									<option value="Excellent">Excellent</option>
-									<option value="Good">Good</option>
-									<option value="Satisfactory">Satisfactory</option>
+									<option value="Brand New" {{($ownedbook && $ownedbook->condition == 'Brand New') ? 'selected' : ''}}>Brand New</option>
+									<option value="Excellent" {{($ownedbook && $ownedbook->condition == 'Excellent') ? 'selected' : ''}}>Excellent</option>
+									<option value="Good" {{($ownedbook && $ownedbook->condition == 'Good') ? 'selected' : ''}}>Good</option>
+									<option value="Satisfactory" {{($ownedbook && $ownedbook->condition == 'Satisfactory') ? 'selected' : ''}}>Satisfactory</option>
 								</select>
 								<label for="information">Any important information</label>
-								<textarea name="information" id="information" style="width: 100%; max-width: 100%;" rows="10"></textarea>
-								<input class="btn btn-outline-dark btn-pill btn-xlarge btn-full" data-bs-dismiss="modal" onclick="addbooktolibrary()" type="button" value="ADD BOOK" style="font-weight:bold;">
+								<textarea name="information" id="information" style="width: 100%; max-width: 100%;" rows="10">{{$ownedbook->information ?? ''}}</textarea>
+								<input class="btn btn-outline-dark btn-pill btn-xlarge btn-full" data-bs-dismiss="modal" onclick="addbooktolibrary({{$ownedbook->id ?? ''}})" type="button" value="{{$ownedbook ? 'EDIT BOOK':'ADD BOOK'}}" style="font-weight:bold;">
+								<input class="btn btn-outline-dark btn-pill btn-xlarge btn-full" data-bs-dismiss="modal" onclick="remove({{$ownedbook->id ?? ''}})" type="button" value="REMOVE  FROM LIBRARY" style="font-weight:bold;">
 							</form>
 						</div>
 					</div>
@@ -229,16 +230,19 @@ const addbooktowishlist = () => {
 	})
 }
 
-const addbooktolibrary = () => {
+const addbooktolibrary = (id) => {
 	let data = new FormData(document.getElementById('add-book'))
-	const url = document.getElementById('new-book-url').value
+	let url = document.getElementById('new-book-url').value
+	url = (id) ? url + '/' + id : url
 	data.append('title',work.title)
 	data.append('author',name)
 	data.append('open_lib_work_id',workid)
 	data.append('imageurl',imageurl+'.jpg')
 	axios.post(url,data)
 	.then(res => {
-		if (res.data == 1){
+		if(res.data == 2){
+			window.location.reload()
+		}else if (res.data == 1){
 			showmessage(`${title.innerHTML} is now in your library.`,'success')
 		}else if (res.data == 0){
 			showmessage(`${title.innerHTML} is already in your library.`,'success')
@@ -249,6 +253,14 @@ const addbooktolibrary = () => {
 	.catch(err => {
 		showmessage('Something went wrong. Please try again.','error')
 	})
+}
+
+const remove = (id) => {
+	let url = document.getElementById('new-book-url').value + '/delete/' + id
+	console.log(url)
+	axios.post(url,null)
+	.then(res => window.location.reload())
+	.catch(err => console.log(err))
 }
 
 const addbooktocart = (offerid) => {

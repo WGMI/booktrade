@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('library',[BookController::class, 'showlibrary']);
     Route::get('library/offer/{id}',[BookController::class, 'showlibrary']);
     Route::post('book',[BookController::class, 'store']);
+    Route::post('book/{id}',[BookController::class, 'update']);
+    Route::post('book/delete/{id}',[BookController::class, 'destroy']);
     Route::post('wish',[WishController::class,'store']);
     Route::get('cart',[CartController::class,'index']);
     Route::post('cart',[CartController::class,'store']);
