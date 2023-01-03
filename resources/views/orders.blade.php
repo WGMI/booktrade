@@ -3,6 +3,11 @@
 
 <section id="featured-books">
 	<div class="container">
+
+    @if(session()->has('success'))
+		<div id="message" class="alert alert-success" role="alert">{{session('success')}} <a href="#" onclick="document.getElementById('message').innerHTML = '';document.getElementById('message').classList = ''">Close</a></div>
+	@endif
+
 		<div class="row">
 			<div class="col-md-12">
                 <div class="section-header align-center">
@@ -14,6 +19,7 @@
                 <h3>Your Orders</h3>
                 @endif
 
+                <input id="remove-url" type="hidden" value="{{url('/order')}}">
                 @foreach($orders as $o)
                 <div class="row" id="search-items">
                     @php 
@@ -24,8 +30,11 @@
                     @if($offered_book)
                     <p>{{$ordered_book->title}} for {{$offered_book->title}}</p>
                     @else
-                    <p><a href="{{url('library/offer/'.$o->id)}}">Select</a> a book from your library to trade for {{$ordered_book->title}}</p>
+                    <p><a href="{{url('library/offer/'.$o->id)}}">Select a book</a> from your library to trade for {{$ordered_book->title}}</p>
                     @endif
+
+                    <a href="{{url('library/offer/'.$o->id)}}">Edit Order</a>
+                    <a href="#" onclick="remove({{$o->id}})" style="text-decoration:none;color:red;">Remove Order</a>
 
                     <div class="col-md-3">
                         <figure class="product-style">
@@ -76,7 +85,7 @@
                     @if($offered_book)
                     <p>{{$ordered_book->title}} for {{$offered_book->title}}</p>
                     @else
-                    <p>Select a book from {{\App\Models\User::find($o->user_id)->first()->name}}'s library to trade for {{$ordered_book->title}}</p>
+                    <p><a href="{{url('library/select/'.$o->id.'/'.$o->user_id)}}">Select a book</a> from {{\App\Models\User::find($o->user_id)->name}}'s library to trade for {{$ordered_book->title}}</p>
                     @endif
 
                     <div class="col-md-3">
@@ -119,6 +128,12 @@
 </section>
 
 <script>
+
+const remove = (id) => {
+	axios.post(document.getElementById('remove-url').value + '/' + id,null)
+	.then(res => window.location.reload())
+	.catch(err => console.log(err))
+}
 
 </script>
 

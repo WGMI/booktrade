@@ -21,6 +21,12 @@ class BookController extends Controller
         return view('library')->with('books',$books);
     }
 
+    public function showuserlibrary($id,$userid){
+        $user = \App\Models\User::find($userid);
+        $books = Book::where('user_id',$userid)->get();
+        return view('userlibrary',compact('books','user','id'));
+    }
+
     public function store(Request $request){
         $check = Book::where([['open_lib_work_id',$request->open_lib_work_id],['user_id',auth()->user()->id]])->first();
         if($check){
@@ -55,7 +61,6 @@ class BookController extends Controller
     }
 
     public function destroy($id){
-        \Illuminate\Support\Facades\Log::info($id);
         $book = Book::find($id);
         $book->delete();
         return 1;
