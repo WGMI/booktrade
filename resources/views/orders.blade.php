@@ -90,7 +90,11 @@
                     <p><a href="{{url('library/select/'.$o->id.'/'.$o->user_id)}}">Select a book</a> from {{\App\Models\User::find($o->user_id)->name}}'s library to trade for {{$ordered_book->title}}</p>
                     @endif
 
-                    <a href="{{url('/offer/'.$o->id.'/accept')}}">Accept Offer</a>
+                    <form action="{{url('/accept')}}" method="POST" id="{{'accept-offer'.$o->id}}">
+                        @csrf
+                        <input type="hidden" name="orderid" value="{{$o->id}}">
+                        <a href="#" onclick="document.getElementById('{{"accept-offer".$o->id}}').submit()">Accept Offer</a>
+                    </form>
 
                     <div class="col-md-3">
                         <figure class="product-style">

@@ -35,8 +35,15 @@ class OrderController extends Controller
         return redirect('/orders')->with('success','Updated successfully');
     }
 
-    public function accept($id){
-        return time();
+    public function accept(Request $request){
+        $order = Order::find($request->orderid);
+        $order->status = 'Accepted';
+        $order->save();
+        return view('delivery')->with('order',$order);
+    }
+
+    public function delivery(){
+        return view('delivery');
     }
 
     public function destroy($id){
