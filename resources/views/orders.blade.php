@@ -67,6 +67,8 @@
                         </figure>
                     </div>
                     @endif
+
+                    <hr style="border: 1px solid;">
                     
                     @endforeach
                 </div>
@@ -87,6 +89,8 @@
                     @else
                     <p><a href="{{url('library/select/'.$o->id.'/'.$o->user_id)}}">Select a book</a> from {{\App\Models\User::find($o->user_id)->name}}'s library to trade for {{$ordered_book->title}}</p>
                     @endif
+
+                    <a href="{{url('/offer/'.$o->id.'/accept')}}">Accept Offer</a>
 
                     <div class="col-md-3">
                         <figure class="product-style">

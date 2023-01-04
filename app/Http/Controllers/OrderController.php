@@ -28,11 +28,15 @@ class OrderController extends Controller
         return redirect('/')->with(['order_success' => 'Offer sent to '.$owner_name]);
     }
 
-    public function update($id,$bookid){
+    public function update(Request $request,$id){
         $order = Order::find($id);
-        $order->offered_book_id = $bookid;
+        $order->offered_book_id = $request->bookid;
         $order->save();
         return redirect('/orders')->with('success','Updated successfully');
+    }
+
+    public function accept($id){
+        return time();
     }
 
     public function destroy($id){

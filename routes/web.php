@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('cart',[CartController::class,'store']);
     Route::post('remove',[CartController::class,'remove']);
     Route::get('orders',[OrderController::class,'index']);
-    Route::get('offer/{id}/{bookid}',[OrderController::class, 'update']);
+    Route::post('offer/{id}',[OrderController::class, 'update']);
     Route::post('order',[OrderController::class,'store']);
     Route::post('order/{id}',[OrderController::class,'destroy']);
 });

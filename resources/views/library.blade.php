@@ -16,11 +16,15 @@
 					<div class="col-md-3 book">
 						<figure class="product-style">
 							@php
-							$url = (str_contains(Request::path(),'offer')) ? 'offer/'.request()->route('id') : 'book/works/'.$b->open_lib_work_id;
+							$url = (str_contains(Request::path(),'offer')) ? '#' : 'book/works/'.$b->open_lib_work_id;
 							@endphp
 							
-							<a href="{{url($url)}}"><img src="{{$b->cover_url}}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Cover image" class="product-item"></a>
+							<a href="{{url($url)}}" @if(str_contains(Request::path(),'offer')) onclick="document.getElementById('{{"update-offer".$b->id}}').submit()" @endif><img src="{{$b->cover_url}}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Cover image" class="product-item"></a>
 							<figcaption>
+								<form action="{{url('offer/'.request()->route('id') )}}" method="POST" id="{{'update-offer'.$b->id}}">
+									@csrf
+									<input type="hidden" name="bookid" value="{{$b->id}}">
+								</form>
 								<div class="titletext">
 									<div class="book-details">
 										<span class="book-title">{{$b->title}}</span>

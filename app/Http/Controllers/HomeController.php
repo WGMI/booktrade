@@ -21,7 +21,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $featured = Book::all()->take(4);
+        $featured = Book::all()->sortByDesc('created_at')->take(4);
+        //$featured = Book::inRandomOrder()->limit(4)->get();
         return view('index',compact('featured'));
     }
 }
