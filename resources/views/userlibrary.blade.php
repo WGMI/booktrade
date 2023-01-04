@@ -15,8 +15,12 @@
 					@foreach($books as $b)
 					<div class="col-md-3 book">
 						<figure class="product-style">							
-							<a href="{{url('offer/'.$id.'/'.$b->id)}}"><img src="{{$b->cover_url}}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Cover image" class="product-item"></a>
+							<a href="#" @if(str_contains(Request::path(),'select')) onclick="document.getElementById('{{"update-offer".$b->id}}').submit()" @endif><img src="{{$b->cover_url}}" onerror="this.src='{{asset("images/product-item1.jpg")}}'" alt="Cover image" class="product-item"></a>
 							<figcaption>
+								<form action="{{url('offer/'.request()->route('id') )}}" method="POST" id="{{'update-offer'.$b->id}}">
+									@csrf
+									<input type="hidden" name="bookid" value="{{$b->id}}">
+								</form>
 								<div class="titletext">
 									<div class="book-details">
 										<span class="book-title">{{$b->title}}</span>

@@ -124,6 +124,8 @@
                     </div>
                     @endif
                     
+                    <hr style="border: 1px solid;">
+                    
                     @endforeach
                 </div>
             </div>
