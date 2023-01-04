@@ -16,6 +16,11 @@ class BookController extends Controller
         return view('book')->with(['id' => $id, 'ownedbooks' => $ownedbooks, 'wishes' => $wishes, 'ownedbook' => $ownedbook]);
     }
 
+    public function showall(){
+        $books = Book::all();
+        return view('library')->with('books',$books);
+    }
+    
     public function showlibrary(){
         $books = Book::where('user_id',auth()->user()->id)->get();
         return view('library')->with('books',$books);

@@ -42,7 +42,7 @@
 			<div class="col-md-12">
 
 				<div class="btn-wrap align-right">
-					<a href="#" class="btn-accent-arrow">More <i class="icon icon-ns-arrow-right"></i></a>
+					<a href="{{url('commonlibrary')}}" class="btn-accent-arrow">More <i class="icon icon-ns-arrow-right"></i></a>
 				</div>
 				
 			</div>		

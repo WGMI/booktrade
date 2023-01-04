@@ -31,6 +31,7 @@ Route::get('/search',[SearchController::class, 'index']);
 Route::get('/book/works/{id}',[BookController::class, 'show']);
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('commonlibrary',[BookController::class, 'showall']);
     Route::get('library',[BookController::class, 'showlibrary']);
     Route::get('library/offer/{id}',[BookController::class, 'showlibrary']);
     Route::get('library/select/{id}/{userid}',[BookController::class, 'showuserlibrary']);
