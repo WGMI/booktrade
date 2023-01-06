@@ -39,7 +39,7 @@ class OrderController extends Controller
         $order = Order::find($request->orderid);
         $order->status = 'Accepted';
         $order->save();
-        return view('delivery')->with('order',$order);
+        return redirect()->back();//view('delivery')->with('order',$order);
     }
 
     public function delivery(){
