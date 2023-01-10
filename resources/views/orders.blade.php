@@ -85,7 +85,7 @@
                     @endphp
     
                     @if($offered_book)
-                    <p>{{$ordered_book->title}} <strong>for</strong> {{$offered_book->title}}</p>
+                    <p>{{$ordered_book->title}} <strong>for</strong> {{$offered_book->title}} from <strong>{{\App\Models\User::find($o->user_id)->name}}</strong></p>
                     @else
                     <p><a href="{{url('library/select/'.$o->id.'/'.$o->user_id)}}">Select a book</a> from {{\App\Models\User::find($o->user_id)->name}}'s library to trade for {{$ordered_book->title}}</p>
                     @endif
@@ -125,6 +125,14 @@
                                 <p>Select from their library</p>
                             </figcaption>
                         </figure>
+                    </div>
+                    @endif
+
+                    @if($o->status == 'Accepted')
+                    <div class="col-md-3">
+                        Contacts
+                        <P>{{\App\Models\User::find($o->user_id)->number}}</P>
+                        <P>{{\App\Models\User::find($o->user_id)->email}}</P>
                     </div>
                     @endif
                     

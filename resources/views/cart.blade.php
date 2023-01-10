@@ -63,6 +63,12 @@
 
 					<input type="hidden" name="owner_id" value="{{\App\Models\Book::where('open_lib_work_id',$book->id)->first()->user_id}}">
 					<input type="hidden" name="ordered_book_id" value="{{\App\Models\Book::where('open_lib_work_id',$book->id)->first()->id}}">
+
+					<div class="mb-2">
+					<label for="number">Phone Number</label>
+					<input type="text" class="form-control" id="number" name="number" value="{{auth()->user()->number}}" required>
+					</div>
+
 					<div class="mb-2">
 						<label for="offered_book_id">Book to trade</label>
 						<span>You can skip this and let the owner pick a book from your library.</span>
