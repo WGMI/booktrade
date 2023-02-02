@@ -15,6 +15,8 @@ class OrderController extends Controller
     }
 
     public function store(Request $request){
+        auth()->user()->number = $request->number;
+        auth()->user()->save();
         Order::create([
             'user_id' => auth()->user()->id,
             'owner_id' => $request->owner_id,

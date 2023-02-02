@@ -26,15 +26,16 @@
                     $ordered_book = \App\Models\Book::find($o->ordered_book_id);
                     $offered_book = \App\Models\Book::find($o->offered_book_id);
                     @endphp
-    
-                    @if($offered_book)
-                    <p>{{$ordered_book->title}} <strong>for</strong> {{$offered_book->title}}</p>
-                    @else
-                    <p><a href="{{url('library/offer/'.$o->id)}}">Select a book</a> from your library to trade for {{$ordered_book->title}}</p>
-                    @endif
-
+                       
+                    @if($o->status != 'Accepted')
+                        @if($offered_book)
+                        <p>{{$ordered_book->title}} <strong>for</strong> {{$offered_book->title}}</p>
+                        @else
+                        <p><a href="{{url('library/offer/'.$o->id)}}">Select a book</a> from your library to trade for {{$ordered_book->title}}</p>
+                        @endif
                     <a href="{{url('library/offer/'.$o->id)}}">Edit Order</a>
                     <a href="#" onclick="remove({{$o->id}})" style="text-decoration:none;color:red;">Remove Order</a>
+                    @endif
 
                     <div class="col-md-3">
                         <figure class="product-style">
@@ -68,6 +69,16 @@
                     </div>
                     @endif
 
+                    @if($o->status == 'Accepted')
+                    <div class="col-md-3">
+                        <p style="text-decoration:none;color:green;">Accepted!</p>
+                        Contacts
+                        <P>{{\App\Models\User::find($o->owner_id)->number}}</P>
+                        <P>{{\App\Models\User::find($o->owner_id)->email}}</P>
+                        You can get in touch with {{\App\Models\User::find($o->user_id)->name}} to arrange collection.
+                    </div>
+                    @endif
+
                     <hr style="border: 1px solid;">
                     
                     @endforeach
@@ -90,11 +101,13 @@
                     <p><a href="{{url('library/select/'.$o->id.'/'.$o->user_id)}}">Select a book</a> from {{\App\Models\User::find($o->user_id)->name}}'s library to trade for {{$ordered_book->title}}</p>
                     @endif
 
+                    @if($o->status != 'Accepted')
                     <form action="{{url('/accept')}}" method="POST" id="{{'accept-offer'.$o->id}}">
                         @csrf
                         <input type="hidden" name="orderid" value="{{$o->id}}">
                         <a href="#" onclick="document.getElementById('{{"accept-offer".$o->id}}').submit()">Accept Offer</a>
                     </form>
+                    @endif
 
                     <div class="col-md-3">
                         <figure class="product-style">
@@ -133,6 +146,7 @@
                         Contacts
                         <P>{{\App\Models\User::find($o->user_id)->number}}</P>
                         <P>{{\App\Models\User::find($o->user_id)->email}}</P>
+                        You can get in touch with {{\App\Models\User::find($o->user_id)->name}} to arrange collection.
                     </div>
                     @endif
                     
